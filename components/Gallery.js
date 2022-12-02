@@ -40,6 +40,7 @@ export const Gallery = ({ navigation }) => {
   const fetchPhotos = async () => {
     let { status } = await MediaLibrary.requestPermissionsAsync();
     let obj = await MediaLibrary.getAssetsAsync({
+      sortBy: "creationTime",
       first: 100, // ilość pobranych assetów
       mediaType: "photo", // typ pobieranych danych, photo jest domyślne
     });
@@ -57,7 +58,7 @@ export const Gallery = ({ navigation }) => {
     } else setNumColumns(5);
   };
   const goToCamera = () => {
-    navigation.navigate("CamView");
+    navigation.navigate("Camview");
   };
   return (
     <View style={styles.container}>
