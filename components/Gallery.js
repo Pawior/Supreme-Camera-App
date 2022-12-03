@@ -35,16 +35,8 @@ export const Gallery = ({ navigation }) => {
       first: 50,
       mediaType: ["photo"],
     });
-    // let obj = await MediaLibrary.getAssetsAsync({
-    //   sortBy: "creationTime",
-    //   first: 100, // ilość pobranych assetów
-    //   mediaType: "photo", // typ pobieranych danych, photo jest domyślne
-    // });
     setImageList([...photos.assets]);
   };
-  // useEffect(() => {
-  //   // console.log(imageList[0]);
-  // }, [imageList]);
 
   const changeLayout = () => {
     if (numColumns == 5) {

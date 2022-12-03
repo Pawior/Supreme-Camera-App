@@ -69,9 +69,6 @@ const FotoItem = ({
           source={{ uri: uri }}
         ></Image>
         <Text style={styles.idText}>{id}</Text>
-        {/* <Text>ListItem</Text> */}
-        {/* <Text>{timestamp}</Text> */}
-        {/* <Text>{uri}</Text> */}
         {selected && <View style={styles.overlay} />}
       </TouchableOpacity>
     </View>
@@ -82,14 +79,9 @@ export default FotoItem;
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    // width: "100%",
-    // width: 80,
-    // height: 70,
     padding: 0,
     marginVertical: 5,
     marginHorizontal: 1.5,
-    // borderWidth: 2,
   },
   gridPhoto: {
     width: maxWidth / 5 - 3,

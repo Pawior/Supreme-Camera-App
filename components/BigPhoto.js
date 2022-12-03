@@ -49,19 +49,14 @@ const styles = StyleSheet.create({
   },
   image: {
     borderRadius: 18,
-    // margin: 10,
     width: "85%",
-    // height: "70%",
     aspectRatio: 9 / 16,
   },
   btnsContainer: {
-    // flex: 1,
     width: "100%",
     gap: 10,
     flexDirection: "row",
     flexWrap: "wrap",
-    // alignItems: "flex-end",
-    // alignContent: "space-between",
     justifyContent: "space-evenly",
   },
 });

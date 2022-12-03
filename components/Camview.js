@@ -3,10 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Camera, CameraType } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 
-// import Icon from "react-native-vector-icons/FontAwesome";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-// const myIcon = <Icon name="rocket" size={30} color="#900" />;
 const rotateIcon = (
   <MaterialCommunityIcons name="rotate-3d-variant" size={45} color="#DBA39A" />
 );
@@ -20,15 +18,14 @@ export const Camview = () => {
   const [camera, setCamera] = useState(null);
 
   if (!permission) {
-    // Camera permissions are still loading
-    return <View />;
+    return (
+      <View>
+        <Text> "Waiting for permission</Text>{" "}
+      </View>
+    );
   }
-  // useEffect(() => {
-  //   console.log("dasgfdsdfgf");
-  // });
 
   if (!permission.granted) {
-    // Camera permissions are not granted yet
     return (
       <View style={styles.container}>
         <Text style={{ textAlign: "center" }}>
