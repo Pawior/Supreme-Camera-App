@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 // import ListItem from "./components/ListItem";
 import Main from "./components/Main";
+import BigPhoto from "./components/BigPhoto";
 import Gallery from "./components/Gallery";
 import { Camview } from "./components/Camview";
 // import List from "./components/List";
@@ -16,7 +17,12 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Main">
         <Stack.Screen name="Main" component={Main} />
-        <Stack.Screen name="Gallery" component={Gallery} />
+        <Stack.Screen
+          name="Gallery"
+          component={Gallery}
+          options={{ headerStyle: { backgroundColor: "#F0DBDB" } }}
+        />
+        <Stack.Screen name="BigPhoto" component={BigPhoto} />
         <Stack.Screen
           name="Camview"
           component={Camview}

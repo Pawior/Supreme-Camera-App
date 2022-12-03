@@ -50,7 +50,7 @@ export const Camview = () => {
       const data = await camera.takePictureAsync(null);
       console.log(data.uri);
       const asset = await MediaLibrary.createAssetAsync(data.uri);
-      console.log(asset);
+      console.log(JSON.stringify(asset, null, 4));
     }
   };
   return (

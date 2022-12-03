@@ -3,54 +3,43 @@ import React, { useState, useEffect } from "react";
 import MyButton from "./MyButton";
 import * as MediaLibrary from "expo-media-library";
 import FotoItem from "./FotoItem";
+import { Dimensions } from "react-native";
 
 export const Gallery = ({ navigation }) => {
   const test = () => {
     console.log("tesgs");
   };
+
   //   const [permissionResponse, requestPermission] = MediaLibrary.usePermissions();
-  const [imageList, setImageList] = useState([
-    {
-      albumId: "-2075821635",
-      creationTime: 1668592681000,
-      duration: 0,
-      filename: "28eafc40-e244-483c-a52c-ec1d73008e91.jpg",
-      height: 3264,
-      id: "356",
-      mediaType: "photo",
-      modificationTime: 1668592681000,
-      uri: "file:///storage/emulated/0/DCIM/28eafc40-e244-483c-a52c-ec1d73008e91.jpg",
-      width: 2448,
-    },
-    {
-      albumId: "-2075821635",
-      creationTime: 1668592683000,
-      duration: 0,
-      filename: "8d5beecf-0b58-4253-9ccf-8d439de91d74.jpg",
-      height: 3264,
-      id: "357",
-      mediaType: "photo",
-      modificationTime: 1668592683000,
-      uri: "file:///storage/emulated/0/DCIM/8d5beecf-0b58-4253-9ccf-8d439de91d74.jpg",
-      width: 2448,
-    },
-  ]);
+  const [imageList, setImageList] = useState([]);
   const [numColumns, setNumColumns] = useState(5);
+  const [selectedImages, setSelectedImages] = useState([]);
+
+  useEffect(() => {
+    console.log(selectedImages);
+  }, [selectedImages]);
 
   const fetchPhotos = async () => {
     let { status } = await MediaLibrary.requestPermissionsAsync();
-    let obj = await MediaLibrary.getAssetsAsync({
+    const album = await MediaLibrary.getAlbumAsync("DCIM");
+    const photos = await MediaLibrary.getAssetsAsync({
+      album: album,
       sortBy: "creationTime",
-      first: 100, // ilość pobranych assetów
-      mediaType: "photo", // typ pobieranych danych, photo jest domyślne
+      first: 20,
+      mediaType: ["photo"],
     });
-    setImageList([...obj.assets]);
+    // let obj = await MediaLibrary.getAssetsAsync({
+    //   sortBy: "creationTime",
+    //   first: 100, // ilość pobranych assetów
+    //   mediaType: "photo", // typ pobieranych danych, photo jest domyślne
+    // });
+    setImageList([...photos.assets]);
   };
   useEffect(() => {
     fetchPhotos();
-  }, []);
+  });
   useEffect(() => {
-    console.log(imageList[0]);
+    // console.log(imageList[0]);
   }, [imageList]);
   const changeLayout = () => {
     if (numColumns == 5) {
@@ -111,6 +100,9 @@ export const Gallery = ({ navigation }) => {
               id={item.id}
               timestamp={item.creationTime}
               uri={item.uri}
+              numColumns={numColumns}
+              selectedImages={selectedImages}
+              setSelectedImages={setSelectedImages}
             ></FotoItem>
           )}
         ></FlatList>
@@ -134,6 +126,7 @@ const styles = StyleSheet.create({
   },
   imgsContainer: {
     flex: 7,
+    // flexWrap: "wrap",
   },
   oneColumn: {
     alignItems: "center",
