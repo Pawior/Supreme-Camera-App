@@ -56,7 +56,6 @@ const FotoItem = ({
   };
 
   useEffect(() => {
-    console.log(numColumns);
     if (numColumns == 5) {
       setLayout(true);
     } else setLayout(false);

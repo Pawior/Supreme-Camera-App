@@ -6,18 +6,25 @@ import FotoItem from "./FotoItem";
 import { Dimensions } from "react-native";
 
 export const Gallery = ({ navigation }) => {
-  const test = () => {
-    console.log("tesgs");
-  };
-
   //   const [permissionResponse, requestPermission] = MediaLibrary.usePermissions();
   const [imageList, setImageList] = useState([]);
   const [numColumns, setNumColumns] = useState(5);
   const [selectedImages, setSelectedImages] = useState([]);
+  const [deleteArr, setDeleteArr] = useState([]);
 
   useEffect(() => {
     console.log(selectedImages);
+    setDeleteArr([]);
+    selectedImages.forEach((selectedImage) => {
+      setDeleteArr((prevArray) => [...prevArray, selectedImage.itemId]);
+    });
   }, [selectedImages]);
+  useEffect(() => {
+    console.log(deleteArr);
+  }, [deleteArr]);
+  useEffect(() => {
+    fetchPhotos();
+  });
 
   const fetchPhotos = async () => {
     let { status } = await MediaLibrary.requestPermissionsAsync();
@@ -25,7 +32,7 @@ export const Gallery = ({ navigation }) => {
     const photos = await MediaLibrary.getAssetsAsync({
       album: album,
       sortBy: "creationTime",
-      first: 20,
+      first: 50,
       mediaType: ["photo"],
     });
     // let obj = await MediaLibrary.getAssetsAsync({
@@ -35,12 +42,10 @@ export const Gallery = ({ navigation }) => {
     // });
     setImageList([...photos.assets]);
   };
-  useEffect(() => {
-    fetchPhotos();
-  });
-  useEffect(() => {
-    // console.log(imageList[0]);
-  }, [imageList]);
+  // useEffect(() => {
+  //   // console.log(imageList[0]);
+  // }, [imageList]);
+
   const changeLayout = () => {
     if (numColumns == 5) {
       setNumColumns(1);
@@ -49,6 +54,10 @@ export const Gallery = ({ navigation }) => {
   const goToCamera = () => {
     navigation.navigate("Camview");
   };
+  const deleteSelectedPhotos = async () => {
+    await MediaLibrary.deleteAssetsAsync(deleteArr);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.btnsContainer}>
@@ -62,7 +71,11 @@ export const Gallery = ({ navigation }) => {
           color="#DBA39A"
           passedFunc={goToCamera}
         ></MyButton>
-        <MyButton text="Delete" color="#DBA39A" passedFunc={test}></MyButton>
+        <MyButton
+          text="Delete"
+          color="#DBA39A"
+          passedFunc={deleteSelectedPhotos}
+        ></MyButton>
       </View>
       <View
         style={[styles.imgsContainer, numColumns == 1 ? styles.oneColumn : ""]}

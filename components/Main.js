@@ -20,8 +20,9 @@ export const Main = ({ navigation }) => {
       >
         <Text style={{ fontSize: 90, textAlign: "center" }}> Camera App</Text>
       </TouchableOpacity>
-      <Text style={styles.smallText}> find and save your position</Text>
-      <Text style={styles.smallText}> use google maps</Text>
+      <Text style={styles.smallText}> Supreme Camera Application</Text>
+      <Text style={styles.smallText}> Shot Save Share</Text>
+      <Text style={styles.smallText}> Perfect Polished Photos</Text>
     </View>
   );
 };
