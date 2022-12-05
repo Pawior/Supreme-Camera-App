@@ -20,7 +20,7 @@ export const Camview = () => {
   if (!permission) {
     return (
       <View>
-        <Text> "Waiting for permission</Text>{" "}
+        <Text> "Waiting for permission</Text>
       </View>
     );
   }
